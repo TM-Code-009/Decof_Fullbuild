@@ -14,7 +14,9 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// =====================
+// ✅ MIDDLEWARE
+// =====================
 app.use(cors());
 app.use(express.json());
 
@@ -28,17 +30,17 @@ app.use("/api/gallery", galleryRoutes);
 // ✅ STATIC FILES
 // =====================
 
-// 👉 Serve uploaded images
+// Serve uploads
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-// 👉 Serve frontend (React build inside backend/public)
+// Serve frontend
 const frontendPath = path.join(__dirname, "../public");
 app.use(express.static(frontendPath));
 
 // =====================
-// ✅ SPA FALLBACK (VERY IMPORTANT)
+// ✅ FIXED SPA FALLBACK (EXPRESS v5 SAFE)
 // =====================
-app.get("*", (_req, res) => {
+app.get(/.*/, (_req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
