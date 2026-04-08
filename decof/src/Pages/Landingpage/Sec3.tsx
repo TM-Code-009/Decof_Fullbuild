@@ -15,7 +15,7 @@ const Sec3 = () => {
     const fetchImages = async () => {
       try {
         // ✅ use relative path (works with proxy + production)
-        const res = await fetch("/api/gallery");
+        const res = await fetch("https://decof-fullbuild.onrender.com/api/gallery");
 
         if (!res.ok) throw new Error("Failed to fetch images");
 

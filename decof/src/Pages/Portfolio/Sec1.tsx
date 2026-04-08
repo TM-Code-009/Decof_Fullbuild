@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Project } from "./types";
 import getCategoryColor from "./utils/getCategoryColor";
 
-const API_URL = "/api/projects";
+const API_URL = "https://decof-fullbuild.onrender.com/api/projects";
 
 const categories = [
   "All Projects",

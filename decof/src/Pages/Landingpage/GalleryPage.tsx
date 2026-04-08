@@ -13,7 +13,7 @@ const GalleryPage = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await fetch("/api/gallery"); // ✅ no localhost
+        const res = await fetch("https://decof-fullbuild.onrender.com/api/gallery"); // ✅ no localhost
 
         if (!res.ok) throw new Error("Failed to fetch images");
 

@@ -30,7 +30,7 @@ export const Mainrouter = createBrowserRouter([
         path: "/gallerycms",
         element: (
           <GalleryCMS
-            apiUrl="http://localhost:5000/api/gallery" // <-- your backend endpoint
+            apiUrl="https://decof-fullbuild.onrender.com/api/gallery" // <-- your backend endpoint
             onUploadSuccess={handleGalleryUpload}
           />
         ),

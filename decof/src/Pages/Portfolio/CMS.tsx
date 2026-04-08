@@ -5,7 +5,7 @@ interface CMSProps {
   onAdd: () => void;
 }
 
-const API_URL = "/api/projects";
+const API_URL = "https://decof-fullbuild.onrender.com/api/projects";
 
 const categories = [
   "Annual Reports",

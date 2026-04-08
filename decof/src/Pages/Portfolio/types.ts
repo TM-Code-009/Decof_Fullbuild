@@ -5,4 +5,5 @@ export interface Project {
   desc: string;
   shortDesc: string;
   category: string;
+  image?: string;
 }
