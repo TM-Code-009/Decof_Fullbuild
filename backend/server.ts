@@ -40,10 +40,9 @@ app.use(express.static(frontendPath));
 // =====================
 // ✅ FIXED SPA FALLBACK (EXPRESS v5 SAFE)
 // =====================
-app.get("/*", (_req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
-
 // =====================
 // ✅ SERVER START
 // =====================
