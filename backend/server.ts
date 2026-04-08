@@ -31,18 +31,19 @@ app.use("/api/gallery", galleryRoutes);
 // =====================
 
 // Serve uploads
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Serve frontend
-const frontendPath = path.join(process.cwd(), "frontend/dist");
+const frontendPath = path.join(__dirname, "../public");
 app.use(express.static(frontendPath));
 
 // =====================
 // ✅ FIXED SPA FALLBACK (EXPRESS v5 SAFE)
 // =====================
-app.use((req, res) => {
+app.get(/.*/, (_req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
+
 // =====================
 // ✅ SERVER START
 // =====================
