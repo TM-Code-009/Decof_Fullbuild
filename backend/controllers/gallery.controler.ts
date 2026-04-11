@@ -4,8 +4,10 @@ import Gallery from "../models/gallery.model";
 // CREATE IMAGE
 export const uploadImage = async (req: Request, res: Response) => {
   try {
+    console.log("FILE:", req.file);
+
     if (!req.file) {
-      return res.status(400).json({ message: "Image required" });
+      return res.status(400).json({ message: "No image uploaded" });
     }
 
     const image = await Gallery.create({
@@ -14,7 +16,8 @@ export const uploadImage = async (req: Request, res: Response) => {
 
     res.status(201).json(image);
   } catch (error) {
-    res.status(500).json({ message: "Upload failed", error });
+    console.error("GALLERY ERROR:", error);
+    res.status(500).json({ message: "Upload failed" });
   }
 };
 

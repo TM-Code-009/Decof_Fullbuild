@@ -4,10 +4,12 @@ import Project from "../models/project.model";
 // CREATE PROJECT
 export const createProject = async (req: Request, res: Response) => {
   try {
+    console.log("FILE:", req.file);
+
     const { title, client, desc, category } = req.body;
 
     if (!req.file) {
-      return res.status(400).json({ message: "Image is required" });
+      return res.status(400).json({ message: "Image upload failed" });
     }
 
     const shortDesc = desc.split(" ").slice(0, 4).join(" ") + "...";
@@ -18,12 +20,13 @@ export const createProject = async (req: Request, res: Response) => {
       desc,
       shortDesc,
       category,
-      image: (req.file as any).path, // 🔥 CLOUDINARY URL
+      image: (req.file as any).path, // Cloudinary URL
     });
 
     res.status(201).json(project);
   } catch (error) {
-    res.status(500).json({ message: "Error creating project", error });
+    console.error("PROJECT ERROR:", error);
+    res.status(500).json({ message: "Error creating project" });
   }
 };
 
