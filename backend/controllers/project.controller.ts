@@ -6,11 +6,6 @@ export const createProject = async (req: Request, res: Response) => {
   try {
     const { title, client, desc, category } = req.body;
 
-    if (!title || !client || !desc || !category) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    // ✅ Check image
     if (!req.file) {
       return res.status(400).json({ message: "Image is required" });
     }
@@ -23,15 +18,12 @@ export const createProject = async (req: Request, res: Response) => {
       desc,
       shortDesc,
       category,
-      image: `/uploads/${req.file.filename}`, // ✅ ADD THIS
+      image: (req.file as any).path, // 🔥 CLOUDINARY URL
     });
 
     res.status(201).json(project);
   } catch (error) {
-    res.status(500).json({
-      message: "Error creating project",
-      error,
-    });
+    res.status(500).json({ message: "Error creating project", error });
   }
 };
 

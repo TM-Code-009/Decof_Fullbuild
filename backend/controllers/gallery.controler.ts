@@ -2,35 +2,23 @@ import { Request, Response } from "express";
 import Gallery from "../models/gallery.model";
 
 // CREATE IMAGE
-export const createGalleryImage = async (req: Request, res: Response) => {
+export const uploadImage = async (req: Request, res: Response) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ message: "Image is required" });
+      return res.status(400).json({ message: "Image required" });
     }
 
     const image = await Gallery.create({
-      image: `/uploads/${req.file.filename}`,
+      image: (req.file as any).path,
     });
 
     res.status(201).json(image);
   } catch (error) {
-    res.status(500).json({
-      message: "Error uploading image",
-      error,
-    });
+    res.status(500).json({ message: "Upload failed", error });
   }
 };
 
-// GET ALL IMAGES
-export const getGalleryImages = async (req: Request, res: Response) => {
-  try {
-    const images = await Gallery.find().sort({ createdAt: -1 });
-
-    res.status(200).json(images);
-  } catch (error) {
-    res.status(500).json({
-      message: "Error fetching images",
-      error,
-    });
-  }
+export const getImages = async (req: Request, res: Response) => {
+  const images = await Gallery.find().sort({ createdAt: -1 });
+  res.json(images);
 };
