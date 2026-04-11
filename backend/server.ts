@@ -1,5 +1,4 @@
 import dns from "dns";
-
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 import dotenv from "dotenv";
@@ -27,20 +26,15 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/gallery", galleryRoutes);
 
 // =====================
-// ✅ STATIC FILES
+// ✅ SERVE FRONTEND (VERY IMPORTANT FIX)
 // =====================
-
-// Serve uploads
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
-
-// Serve frontend
-const frontendPath = path.join(__dirname, "../public");
+const frontendPath = path.join(process.cwd(), "frontend/dist");
 app.use(express.static(frontendPath));
 
 // =====================
-// ✅ FIXED SPA FALLBACK (EXPRESS v5 SAFE)
+// ✅ SAFE FALLBACK (EXPRESS 5 FIX)
 // =====================
-app.get(/.*/, (_req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
