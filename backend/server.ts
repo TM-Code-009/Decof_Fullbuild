@@ -13,42 +13,30 @@ dotenv.config();
 
 const app = express();
 
-// =====================
-// ✅ MIDDLEWARE
-// =====================
 app.use(cors());
 app.use(express.json());
 
-// =====================
-// ✅ API ROUTES
-// =====================
+// API
 app.use("/api/projects", projectRoutes);
 app.use("/api/gallery", galleryRoutes);
 
-// =====================
-// ✅ SERVE FRONTEND (VERY IMPORTANT FIX)
-// =====================
-const frontendPath = path.join(process.cwd(), "frontend/dist");
+// Serve frontend
+const frontendPath = path.join(__dirname, "../public");
 app.use(express.static(frontendPath));
 
-// =====================
-// ✅ SAFE FALLBACK (EXPRESS 5 FIX)
-// =====================
+// SPA fallback (EXPRESS 5 SAFE)
 app.use((req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
-// =====================
-// ✅ SERVER START
-// =====================
 const PORT = process.env.PORT || 10000;
 
 const startServer = async () => {
   try {
     await connectDB();
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT} 🚀`);
-    });
+    app.listen(PORT, () =>
+      console.log(`Server running on port ${PORT} 🚀`)
+    );
   } catch (error) {
     console.error("Failed to start server:", error);
   }
