@@ -58,7 +58,7 @@ const GalleryCMS: React.FC<GalleryCMSProps> = ({ apiUrl, onUploadSuccess }) => {
       onUploadSuccess();
     } catch (err: any) {
       console.error(err);
-      alert(err.message || "Failed to upload image");
+      alert("Failed to upload image");
     } finally {
       setLoading(false);
     }

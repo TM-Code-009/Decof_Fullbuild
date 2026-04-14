@@ -79,7 +79,7 @@ const CMS: React.FC<CMSProps> = ({ onAdd }) => {
       onAdd();
     } catch (err: any) {
       console.error(err);
-      alert(err.message);
+      alert("Failed to upload");
     } finally {
       setLoading(false);
     }

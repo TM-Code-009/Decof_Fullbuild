@@ -4,20 +4,25 @@ import Gallery from "../models/gallery.model";
 // CREATE IMAGE
 export const uploadImage = async (req: Request, res: Response) => {
   try {
-    console.log("FILE:", req.file);
+    console.log("FILE:", req.file); // 👈 ADD THIS
 
     if (!req.file) {
       return res.status(400).json({ message: "No image uploaded" });
     }
 
-    const image = await Gallery.create({
-      image: (req.file as any).path,
+    const image = req.file as any;
+
+    const newImage = await Gallery.create({
+      image: image.path, // Cloudinary URL
     });
 
-    res.status(201).json(image);
-  } catch (error) {
-    console.error("GALLERY ERROR:", error);
-    res.status(500).json({ message: "Upload failed" });
+    res.status(201).json(newImage);
+  } catch (error: any) {
+    console.error("GALLERY ERROR ❌", error); // 👈 IMPORTANT
+    res.status(500).json({
+      message: "Error uploading image",
+      error: error.message, // 👈 RETURN REAL ERROR
+    });
   }
 };
 
