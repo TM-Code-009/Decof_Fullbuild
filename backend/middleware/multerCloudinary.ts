@@ -7,8 +7,7 @@ const storage = new CloudinaryStorage({
   params: async (req, file) => {
     return {
       folder: "decof",
-      format: file.mimetype.split("/")[1], // auto detect file type
-      public_id: Date.now() + "-" + file.originalname,
+      allowed_formats: ["jpg", "png", "jpeg", "webp"],
     };
   },
 });
